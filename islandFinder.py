@@ -3,6 +3,7 @@
 """
 Created on Thu Jul  9 21:11:54 2020
 Last modified on Sat Feb 20 20:05:54 2021
+Version 3.0
 
 @author: tylerpruitt
 """
