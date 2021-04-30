@@ -1,11 +1,13 @@
-# island-finder
-Write a function, in the programming language of your choice, 
-which finds contiguous regions (or "islands") in a matrix where 
+# island-operations
+## island_finder()
+### Finds contiguous regions (or "islands") in a matrix where all values in the island are greater than a threshold
+
+A function which finds contiguous regions (or "islands") in a matrix where 
 all values in the island are greater than a threshold 
-(but not necessarily the same). The function should take a threshold, 
+(but not necessarily the same). The function takes a threshold, 
 a minimum island size, and an arbitrarily sized matrix as inputs. 
-The function should output a matrix (same size as the input matrix) 
-of booleans. Do not wrap around matrix edges. Corner neighbors are 
+The function outputs a matrix (same size as the input matrix) 
+of booleans. It does not wrap around matrix edges. Corner neighbors are 
 not sufficient for island continuity. For example, if the the inputs 
 are: threshold = 5, min island size = 3, and matrix is
 
@@ -23,3 +25,24 @@ Then the output would be
 [0 0 1 1 0]\
 [0 1 1 1 0]\
 [0 0 0 0 0]
+
+## island_cluster()
+### Clusters and counts the contiguous regions (or "islands") in a binary matrix (of 0s and 1s)
+
+For example, if the matrix is
+
+[0 0 0 0 0]\
+[0 1 1 0 0]\
+[0 1 1 0 0]\
+[0 1 0 0 1]\
+[0 0 0 1 1]
+
+Then the output will be
+
+[0 0 0 0 0]\
+[0 1 0 0 0]\
+[0 0 0 0 0]\
+[0 0 0 0 1]\
+[0 0 0 0 0]
+
+and the island count will be 2
