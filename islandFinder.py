@@ -2,41 +2,34 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jul  9 21:11:54 2020
-Last modified on Sat Feb 20 20:05:54 2021
-Version 3.0
-
-@author: tylerpruitt
+Last modified on Tue May 18 07:19:14 2021
+Author: Tyler Pruitt
 """
 
 
 import numpy as np
 
-def island_finder(matrix, threshold, minIslandSize):
+def IslandFinder(matrix, threshold, minIslandSize):
     """
     Finds contiguous regions (or "islands") in a matrix where all values in the island 
     are greater than a threshold (but not necessarily the same).
     
-
     Parameters
     ----------
-    threshold : int or float
-        matrix elements must be greater than this value to be a part of
+    threshold : matrix elements must be greater than this value to be a part of
         an island
-    minIslandSize : int or float
-        min number of connecting (either top, bottom, left or right)
+    minIslandSize : minimum number of connecting (either top, bottom, left or right)
         island elements to constitute an island
-    matrix : np.array or some other matrix
-        input matrix of arbitrary size
-
+    matrix : np.array or other input matrix of arbitrary size
+    
     Returns
     -------
-    ans : matrix
-    a matrix of same size as input matrix of booleans with islands represented
+    ans : matrix of same size as input matrix of booleans with islands represented
     by 1's and everything else represented by 0's
     """
-    #create some helper functions
+    # Create some helper functions
     
-    def upper(count, n, r):
+    def searchupper(count, n, r):
         """
         searches above previous matrix position by decreasing n by 1
         """
@@ -44,12 +37,12 @@ def island_finder(matrix, threshold, minIslandSize):
             if ans[i-1+n][j+r] == 1 and record[i-1+n][j+r] == False: #if upper is 1 and not seached before
                 count += 1
                 record[i-1+n][j+r] = True #record that position has been counted before for this i, j pair
-                count = upper(count, n-1, r) #feed count back into branches
-                count = left(count, n-1, r)
-                count = right(count, n-1, r)
+                count = searchupper(count, n-1, r) #feed count back into branches
+                count = searchleft(count, n-1, r)
+                count = searchright(count, n-1, r)
         return count
     
-    def lower(count, n, r):
+    def searchlower(count, n, r):
         """
         searches below previous matrix position by increasing n by 1
         """
@@ -57,12 +50,12 @@ def island_finder(matrix, threshold, minIslandSize):
             if ans[i+1+n][j+r] == 1 and record[i+1+n][j+r] == False: #if lower is 1 and not searched before
                 count += 1
                 record[i+1+n][j+r] = True #record that position has been counted before for this i, j pair
-                count = lower(count, n+1, r) #feed count back into branches
-                count = left(count, n+1, r)
-                count = right(count, n+1, r)
+                count = searchlower(count, n+1, r) #feed count back into branches
+                count = searchleft(count, n+1, r)
+                count = searchright(count, n+1, r)
         return count
     
-    def left(count, n, r):
+    def searchleft(count, n, r):
         """
         searches to the left of previous matrix position by decreasing r by 1
         """
@@ -70,12 +63,12 @@ def island_finder(matrix, threshold, minIslandSize):
             if ans[i+n][j-1+r] == 1 and record[i+n][j-1+r] == False: #if left is 1 and not searched before
                 count += 1
                 record[i+n][j-1+r] = True #record that position has been counted before for this i, j pair
-                count = upper(count, n, r-1) #feed count back into branches
-                count = lower(count, n, r-1)
-                count = left(count, n, r-1)
+                count = searchupper(count, n, r-1) #feed count back into branches
+                count = searchlower(count, n, r-1)
+                count = searchleft(count, n, r-1)
         return count
     
-    def right(count, n, r):
+    def searchright(count, n, r):
         """
         searches to the right of previous matrix position by increasing r by 1
         """
@@ -83,9 +76,9 @@ def island_finder(matrix, threshold, minIslandSize):
             if ans[i+n][j+1+r] == 1 and record[i+n][j+1+r] == False: #if right is 1 and not searched before
                 count += 1
                 record[i+n][j+1+r] = True #record that position has been counted before for this i, j pair
-                count = upper(count, n, r+1) #feed count back into branches
-                count = lower(count, n, r+1)
-                count = right(count, n, r+1)
+                count = searchupper(count, n, r+1) #feed count back into branches
+                count = searchlower(count, n, r+1)
+                count = searchright(count, n, r+1)
         return count
     
     rows = len(matrix)
@@ -109,10 +102,10 @@ def island_finder(matrix, threshold, minIslandSize):
                 
                 count = 1 #count i,j position (must count single island first)
                 record[i][j] = True #record that position has been counted
-                count = upper(count, n, r) #branch out through upper neighbors to i,j position and retrieve count
-                count = lower(count, n, r) #feed count back into other branches as previous branch is exhausted
-                count = left(count, n, r)
-                count = right(count, n, r)
+                count = searchupper(count, n, r) #branch out through upper neighbors to i,j position and retrieve count
+                count = searchlower(count, n, r) #feed count back into other branches as previous branch is exhausted
+                count = searchleft(count, n, r)
+                count = searchright(count, n, r)
                 
                 if count < minIslandSize:
                     ans[i][j] = 0

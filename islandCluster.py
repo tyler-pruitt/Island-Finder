@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Feb 19 09:38:43 2021
-
-@author: tylerpruitt
+Last modified on Tue May 18 07:24:11 2021
+Author: Tyler Pruitt
 """
 
 import numpy as np
 import random
 
-def island_cluster(matrix, maxIslandSize=1, isRandom=False):
+def IslandCluster(matrix, maxIslandSize=1, isRandom=False):
     """
     Counts the number of contiguous regions (or "islands") or clusters in a matrix.
     Clusters together or shrinks clusters to the size of the element.
@@ -31,11 +31,10 @@ def island_cluster(matrix, maxIslandSize=1, isRandom=False):
         A matrix of clustered islands with every island represented by at least one element.
     islandCount : int
         The number of contiguous regions (or "islands") in a matrix.
-
     """
-    #create some helper functions
+    # Create some helper functions
     
-    def upper(count, n, r):
+    def searchupper(count, n, r):
         """
         searches above previous matrix position by decreasing n by 1
         """
@@ -43,12 +42,12 @@ def island_cluster(matrix, maxIslandSize=1, isRandom=False):
             if ans[i-1+n][j+r] == 1 and record[i-1+n][j+r] == False: #if upper is 1 and not seached before
                 count += 1
                 record[i-1+n][j+r] = True #record that position has been counted before for this i, j pair
-                count = upper(count, n-1, r) #feed count back into branches
-                count = left(count, n-1, r)
-                count = right(count, n-1, r)
+                count = searchupper(count, n-1, r) #feed count back into branches
+                count = searchleft(count, n-1, r)
+                count = searchright(count, n-1, r)
         return count
     
-    def lower(count, n, r):
+    def searchlower(count, n, r):
         """
         searches below previous matrix position by increasing n by 1
         """
@@ -56,12 +55,12 @@ def island_cluster(matrix, maxIslandSize=1, isRandom=False):
             if ans[i+1+n][j+r] == 1 and record[i+1+n][j+r] == False: #if lower is 1 and not searched before
                 count += 1
                 record[i+1+n][j+r] = True #record that position has been counted before for this i, j pair
-                count = lower(count, n+1, r) #feed count back into branches
-                count = left(count, n+1, r)
-                count = right(count, n+1, r)
+                count = searchlower(count, n+1, r) #feed count back into branches
+                count = searchleft(count, n+1, r)
+                count = searchright(count, n+1, r)
         return count
     
-    def left(count, n, r):
+    def searchleft(count, n, r):
         """
         searches to the left of previous matrix position by decreasing r by 1
         """
@@ -69,12 +68,12 @@ def island_cluster(matrix, maxIslandSize=1, isRandom=False):
             if ans[i+n][j-1+r] == 1 and record[i+n][j-1+r] == False: #if left is 1 and not searched before
                 count += 1
                 record[i+n][j-1+r] = True #record that position has been counted before for this i, j pair
-                count = upper(count, n, r-1) #feed count back into branches
-                count = lower(count, n, r-1)
-                count = left(count, n, r-1)
+                count = searchupper(count, n, r-1) #feed count back into branches
+                count = searchlower(count, n, r-1)
+                count = searchleft(count, n, r-1)
         return count
     
-    def right(count, n, r):
+    def searchright(count, n, r):
         """
         searches to the right of previous matrix position by increasing r by 1
         """
@@ -82,9 +81,9 @@ def island_cluster(matrix, maxIslandSize=1, isRandom=False):
             if ans[i+n][j+1+r] == 1 and record[i+n][j+1+r] == False: #if right is 1 and not searched before
                 count += 1
                 record[i+n][j+1+r] = True #record that position has been counted before for this i, j pair
-                count = upper(count, n, r+1) #feed count back into branches
-                count = lower(count, n, r+1)
-                count = right(count, n, r+1)
+                count = searchupper(count, n, r+1) #feed count back into branches
+                count = searchlower(count, n, r+1)
+                count = searchright(count, n, r+1)
         return count
     
     """
@@ -111,10 +110,10 @@ def island_cluster(matrix, maxIslandSize=1, isRandom=False):
                 
                 count = 1 #count i,j position (must count single island first)
                 record[i][j] = True #record that position has been counted
-                count = upper(count, n, r) #branch out through upper neighbors to i,j position and retrieve count
-                count = lower(count, n, r) #feed count back into other branches as previous branch is exhausted
-                count = left(count, n, r)
-                count = right(count, n, r)
+                count = searchupper(count, n, r) #branch out through upper neighbors to i,j position and retrieve count
+                count = searchlower(count, n, r) #feed count back into other branches as previous branch is exhausted
+                count = searchleft(count, n, r)
+                count = searchright(count, n, r)
                 
                 if isRandom:
                     randRow = random.randrange(len(record))
