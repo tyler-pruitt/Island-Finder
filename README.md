@@ -1,5 +1,5 @@
 # island-operations
-## `island_finder()`
+## `IslandFinder()`
 ### Finds contiguous regions (or "islands") in a matrix where all values in the island are greater than a threshold
 
 A function which finds contiguous regions (or "islands") in a matrix where 
@@ -29,7 +29,7 @@ Then the output would be
 [0 0 0 0 0]
 ```
 
-## `island_cluster()`
+## `IslandCluster()`
 ### Clusters and counts the contiguous regions (or "islands") in a binary matrix (of 0s and 1s)
 
 For example, if the matrix is
