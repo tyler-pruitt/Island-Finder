@@ -5,9 +5,13 @@
 using namespace std;
 
 int search(string direction, std::vector<std::vector<int>> answer, std::vector<std::vector<bool>> &isSearched, int count, int rows, int columns, int n, int r, int i, int j);
-std::vector<std::vector<int>> islandFinder(std::vector<std::vector<int>> matrix, int threshold, int minIslandSize);
-std::vector<std::vector<int>> islandCluster(std::vector<std::vector<int>> matrix);
-int islandCounter(std::vector<std::vector<int>> matrix);
+std::vector<std::vector<int>> finder(std::vector<std::vector<int>> matrix, int threshold, int minIslandSize);
+std::vector<std::vector<int>> cluster(std::vector<std::vector<int>> matrix);
+int counter(std::vector<std::vector<int>> matrix);
+
+int main() {
+    return 0;
+}
 
 int search(string direction, std::vector<std::vector<int>> answer, std::vector<std::vector<bool>> &isSearched, int count, int rows, int columns, int n, int r, int i, int j) {    
     // Searches in the direction in relation to the matrix position i, j
@@ -74,7 +78,7 @@ int search(string direction, std::vector<std::vector<int>> answer, std::vector<s
     return count;
 }
 
-std::vector<std::vector<int>> islandFinder(std::vector<std::vector<int>> matrix, int threshold, int minIslandSize) {
+std::vector<std::vector<int>> finder(std::vector<std::vector<int>> matrix, int threshold, int minIslandSize) {
     /*
     Finds contiguous regions (or "islands") in a matrix where all values in the island 
     are greater than a threshold (but not necessarily the same).
@@ -140,7 +144,7 @@ std::vector<std::vector<int>> islandFinder(std::vector<std::vector<int>> matrix,
     return result;
 }
 
-std::vector<std::vector<int>> islandCluster(std::vector<std::vector<int>> matrix) {
+std::vector<std::vector<int>> cluster(std::vector<std::vector<int>> matrix) {
     int rows, columns;
     rows = matrix.size();
     columns = matrix[0].size();
@@ -201,7 +205,7 @@ std::vector<std::vector<int>> islandCluster(std::vector<std::vector<int>> matrix
     return result;
 }
 
-int islandCounter(std::vector<std::vector<int>> matrix) {
+int counter(std::vector<std::vector<int>> matrix) {
     // Counts the number of "islands" or clusters in a matrix.
     // Assumes that the clusters are separated.
 

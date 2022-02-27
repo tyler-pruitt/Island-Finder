@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jul  9 21:11:54 2020
-Last modified on Fri Feb 25 7:44:12 2022
+Last modified on Fri Feb 27 12:20:45 2022
 Author: Tyler Pruitt
 """
 
@@ -51,7 +51,7 @@ def search(direction, answer, isSearched, count, rows, columns, n, r, i, j):
             
     return count
 
-def islandFinder(matrix, threshold, minIslandSize):
+def finder(matrix, threshold, minIslandSize):
     """
     Finds contiguous regions (or "islands") in a matrix where all values in the island 
     are greater than a threshold (but not necessarily the same).
@@ -100,7 +100,7 @@ def islandFinder(matrix, threshold, minIslandSize):
                     result[i][j] = 0
     return result
 
-def islandCluster(matrix, clusterSize=1, isRandom=False):
+def cluster(matrix, clusterSize=1, isRandom=False):
     """
     Counts the number of contiguous regions (or "islands") or clusters in a matrix.
     Clusters together or shrinks clusters to the size of the element.
@@ -182,7 +182,7 @@ def islandCluster(matrix, clusterSize=1, isRandom=False):
     
     return result, islandCount
 
-def islandCounter(matrix):
+def counter(matrix):
     """
     Counts the number of "islands" or clusters in a matrix.
     Assumes that the clusters are separated.
