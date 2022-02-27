@@ -1,5 +1,5 @@
 # island-operations
-## `islandFinder(matrix, threshold, minIslandSize)`
+## `finder(matrix, threshold, minIslandSize)`
 ### Finds contiguous regions (or "islands") in a matrix where all values in the island are greater than a threshold (but not necessarily the same)
 
 ```
@@ -42,7 +42,7 @@ then the output would be
 [0 0 0 0 0]
 ```
 
-## `islandCluster(matrix, clusterSize=1, isRandom=False)`
+## `cluster(matrix, clusterSize=1, isRandom=False)`
 ### Clusters and counts the contiguous regions (or "islands") in a binary matrix (of 0s and 1s)
 
 ```
@@ -91,7 +91,7 @@ then the output will be
 and the island count will be `2`
 
 
-## `islandCounter(matrix)`
+## `counter(matrix)`
 ### Counts the number of "islands" or clusters in a matrix.
 
 ```
